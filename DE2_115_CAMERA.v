@@ -497,31 +497,6 @@ reg signed	[31:0]	pixel_buffer_4_B	[8:0];
 //reg signed	[31:0]	pixel_buffer_1_B	[8:0];
 
 
-//=========================================
-
-////outputs after stage 2 (median filter)
-//reg signed	[31:0]	pixel_buffer_2_R	[8:0];
-//reg signed	[31:0]	pixel_buffer_2_G	[8:0];
-//reg signed	[31:0]	pixel_buffer_2_B	[8:0];
-//
-////outputs after stage 3 (blur filter)
-//reg signed	[31:0]	pixel_buffer_3_R	[8:0];
-//reg signed	[31:0]	pixel_buffer_3_G	[8:0];
-//reg signed	[31:0]	pixel_buffer_3_B	[8:0];
-//
-////outputs after stage 4 (x_derivative filter)
-//reg signed	[31:0]	pixel_buffer_4_R	[8:0];
-//reg signed	[31:0]	pixel_buffer_4_G	[8:0];
-//reg signed	[31:0]	pixel_buffer_4_B	[8:0];
-
-//outputs after stage 5 (laplace filter)
-//reg signed	[31:0]	pixel_buffer_5_R	[8:0];
-//reg signed	[31:0]	pixel_buffer_5_G	[8:0];
-//reg signed	[31:0]	pixel_buffer_5_B	[8:0];
-
-
-//=========================================
-
 //power on start
 wire             auto_start;
 //=======================================================
