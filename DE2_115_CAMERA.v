@@ -866,17 +866,9 @@ always@(posedge VGA_CLK)
 		pixel_buffer_4_G[1] = pixel_buffer_4_G[0];
 		pixel_buffer_4_B[1] = pixel_buffer_4_B[0];
 		
-		
-//		Stage 0: original image
-//		pixel_buffer_R[0] = Read_DATA2[9:0];
-//		pixel_buffer_G[0] = {Read_DATA1[14:10],Read_DATA2[14:10]};
-//		pixel_buffer_B[0] = Read_DATA1[9:0];
-//		pixel_intensity[0] = (pixel_buffer_R[0] + pixel_buffer_G[0] + pixel_buffer_B[0]) / 3;
-		
-//		filtered_R = pixel_buffer_R[0];
-//	   filtered_G = pixel_buffer_G[0];
-//		filtered_B = pixel_buffer_B[0];
-		
+/*
+	Demonstration of stacking color channels to create RGB image
+*/	
 //		Stage 1: RED image
 		if (SW[1])
 			begin
@@ -890,21 +882,6 @@ always@(posedge VGA_CLK)
 				pixel_buffer_RED_G[0] = 0;
 				pixel_buffer_RED_B[0] = 0;
 			end
-//		else
-//			begin
-//				if (pixel_buffer_RED_R[0] != 0 and pixel_buffer_RED_G[0] != 0 and pixel_buffer_RED_B[0] != 0)
-//					begin
-//						pixel_buffer_RED_R[0] = pixel_buffer_RED_R[0];
-//						pixel_buffer_RED_G[0] = pixel_buffer_RED_G[0];
-//						pixel_buffer_RED_B[0] = pixel_buffer_RED_B[0];
-//					end
-//				else
-//					begin
-//						pixel_buffer_RED_R[0] = 0;
-//						pixel_buffer_RED_G[0] = 0;
-//						pixel_buffer_RED_B[0] = 0;
-//					end
-//			end
 		
 //		Stage 2: BLUE image
 		if (SW[2])
@@ -938,9 +915,48 @@ always@(posedge VGA_CLK)
 		if (SW[4])
 			begin
 				//Take average of 3 images
-				pixel_buffer_4_R[0] = (pixel_buffer_RED_R[0] + pixel_buffer_BLUE_R[0] + pixel_buffer_GREEN_R[0])/3;
-				pixel_buffer_4_G[0] = (pixel_buffer_RED_G[0] + pixel_buffer_BLUE_G[0] + pixel_buffer_GREEN_G[0])/3;
-				pixel_buffer_4_B[0] = (pixel_buffer_RED_B[0] + pixel_buffer_BLUE_B[0] + pixel_buffer_GREEN_B[0])/3;
+				pixel_buffer_4_R[0] = pixel_buffer_RED_R[0];
+				pixel_buffer_4_G[0] = pixel_buffer_GREEN_G[0];
+				pixel_buffer_4_B[0] = pixel_buffer_BLUE_B[0];
+			end
+			
+/*
+	Demonstration of stacking color images
+*/
+//		Stage 1: RED image
+		if (SW[5])
+			begin
+				// Read red image data
+				pixel_buffer_RED_R[0] = Read_DATA2[9:0];
+				pixel_buffer_RED_G[0] = 0;
+				pixel_buffer_RED_B[0] = 0;
+			end
+		
+//		Stage 2: BLUE image
+		if (SW[6])
+			begin
+				// Read red image data
+				pixel_buffer_BLUE_R[0] = 0;
+				pixel_buffer_BLUE_G[0] = 0;
+				pixel_buffer_BLUE_B[0] = Read_DATA1[9:0];
+			end
+		
+//		Stage 3: GREEN image
+		if (SW[7])
+			begin
+				// Read green image data
+				pixel_buffer_GREEN_R[0] = 0;
+				pixel_buffer_GREEN_G[0] = {Read_DATA1[14:10],Read_DATA2[14:10]};
+				pixel_buffer_GREEN_B[0] = 0;
+			end
+		
+//		Stage 4: stacking of images
+		if (SW[8])
+			begin
+				//Take average of 3 images
+				pixel_buffer_4_R[0] = pixel_buffer_RED_R[0];
+				pixel_buffer_4_G[0] = pixel_buffer_GREEN_G[0];
+				pixel_buffer_4_B[0] = pixel_buffer_BLUE_B[0];
 			end
 
 			
